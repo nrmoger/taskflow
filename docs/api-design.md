@@ -4,6 +4,13 @@ Authentication:
 - POST /api/auth/register
 - POST /api/auth/login
 
+Users:
+- GET /api/users
+- POST /api/users
+- GET /api/users/{userId}
+- PUT /api/users/{userId}
+- DELETE /api/users/{userId}
+
 Projects:
 - GET /api/projects
 - POST /api/projects
