@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService {
 		// Build user entity
 		User user = new User();
 		user.setEmployeeId(request.getEmployeeId());
+        user.setEmployeeCode(request.getEmployeeCode());
 		user.setFirstName(request.getFirstName());
 		user.setLastName(request.getLastName());
 		user.setEmail(request.getEmail());
@@ -67,6 +68,7 @@ public class UserServiceImpl implements UserService {
 		// Don't return password in response
 		return new UserResponse(
 				saved.getEmployeeId(),
+                saved.getEmployeeCode(),
 				saved.getFirstName(),
 				saved.getLastName(),
 				saved.getEmail(),
@@ -76,12 +78,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserResponse getUserByEmployeeId(String employeeId) {
+	public UserResponse getUserByEmployeeId(Long employeeId) {
 		Optional<User> user = userRepository.findByEmployeeId(employeeId);
 		if(user.isPresent()) {
 			User u = user.get();
 			return new UserResponse(
 					u.getEmployeeId(),
+					u.getEmployeeCode(),
 					u.getFirstName(),
 					u.getLastName(),
 					u.getEmail(),
@@ -99,6 +102,7 @@ public class UserServiceImpl implements UserService {
 
 		return users.stream().map(user -> new UserResponse(
 				user.getEmployeeId(),
+				user.getEmployeeCode(),
 				user.getFirstName(),
 				user.getLastName(),
 				user.getEmail(),
@@ -108,7 +112,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserResponse updateUserByEmployeeId(String employeeId, CreateUserRequest request) {
+	public UserResponse updateUserByEmployeeId(Long employeeId, CreateUserRequest request) {
 		Optional<User> userOpt = userRepository.findByEmployeeId(employeeId);
 		if (!userOpt.isPresent()) {
 			throw new EntityNotFoundException("User not found");
@@ -129,6 +133,7 @@ public class UserServiceImpl implements UserService {
 
 		return new UserResponse(
 				saved.getEmployeeId(),
+				saved.getEmployeeCode(),
 				saved.getFirstName(),
 				saved.getLastName(),
 				saved.getEmail(),
@@ -138,7 +143,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserResponse updateUserPartial(String employeeId, UpdateUserRequest request) {
+	public UserResponse updateUserPartial(Long employeeId, UpdateUserRequest request) {
 		Optional<User> userOpt = userRepository.findByEmployeeId(employeeId);
 		if (!userOpt.isPresent()) {
 			throw new EntityNotFoundException("User not found");
@@ -146,7 +151,7 @@ public class UserServiceImpl implements UserService {
 		User user = userOpt.get();
 
 		// Update user fields if provided
-		if (request.getEmployeeId() != null && !request.getEmployeeId().isEmpty()) {
+		if (request.getEmployeeId() != null && !request.getEmployeeId().equals(user.getEmployeeId())) {
 			if (!request.getEmployeeId().equals(user.getEmployeeId()) && userRepository.existsByEmployeeId(request.getEmployeeId())) {
 				throw new IllegalArgumentException("Employee ID already in use");
 			}
@@ -175,6 +180,7 @@ public class UserServiceImpl implements UserService {
 
 		return new UserResponse(
 				saved.getEmployeeId(),
+                saved.getEmployeeCode(),
 				saved.getFirstName(),
 				saved.getLastName(),
 				saved.getEmail(),
@@ -184,7 +190,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(String employeeId) {
+	public void deleteUser(Long employeeId) {
 
 		Optional<User> userOpt = userRepository.findByEmployeeId(employeeId);
 		if (!userOpt.isPresent()) {

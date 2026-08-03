@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface UserController {
     @GetMapping("/api/users/{employeeId}")
-    UserResponse getUserByEmployeeId(String employeeId);
+    UserResponse getUserByEmployeeId(Long employeeId);
 
     @GetMapping("/api/users")
     List<UserResponse> getAllUsers();
@@ -23,11 +23,11 @@ public interface UserController {
     UserResponse createUser(@Valid CreateUserRequest request);
 
     @PutMapping("/api/users/{employeeId}")
-    UserResponse updateUserByEmployeeId(String employeeId, @Valid CreateUserRequest request);
+    UserResponse updateUserByEmployeeId(Long employeeId, @Valid CreateUserRequest request);
 
     @PatchMapping("/api/users/{employeeId}")
-    UserResponse patchUserByEmployeeId(String employeeId, UpdateUserRequest request);
+    UserResponse patchUserByEmployeeId(Long employeeId, UpdateUserRequest request);
 
     @DeleteMapping("/api/users/{employeeId}")
-    void deleteUser(String employeeId);
+    void deleteUser(Long employeeId);
 }

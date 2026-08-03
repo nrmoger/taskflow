@@ -15,7 +15,7 @@ public class ProjectResponse {
     private String projectName;
     private String description;
     private String status;
-    private String projectManager;
+    private Long projectManagerId;
     private LocalDate startDate;
     private LocalDate endDate;
 }

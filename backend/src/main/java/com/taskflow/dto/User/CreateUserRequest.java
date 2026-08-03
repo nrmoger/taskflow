@@ -9,9 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateUserRequest {
-    @NotBlank(message = "Employee ID cannot be blank")
-    @Size(min = 3, max = 20, message = "Employee ID must be between 3 and 20 characters")
-    private String employeeId;
+    @NotNull(message = "Employee ID cannot be null")
+    private Long employeeId;
+
+    @NotBlank(message = "Employee Code cannot be blank")
+    @Size(min = 3, max = 20, message = "Employee Code must be between 3 and 20 characters")
+    private String employeeCode;
 
     @NotBlank(message = "First name cannot be blank")
     @Size(min = 2, max = 50, message = "First name must be between 2 and 50 characters")
