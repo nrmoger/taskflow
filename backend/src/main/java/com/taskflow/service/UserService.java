@@ -10,13 +10,13 @@ public interface UserService {
     // Define service methods for user management
     UserResponse createUser(CreateUserRequest request);
 
-    UserResponse getUserByEmployeeId(String employeeId);
+    UserResponse getUserByEmployeeId(Long employeeId);
 
     List<UserResponse> getAllUsers();
 
-    UserResponse updateUserByEmployeeId(String employeeId, CreateUserRequest request);
+    UserResponse updateUserByEmployeeId(Long employeeId, CreateUserRequest request);
 
-    UserResponse updateUserPartial(String employeeId, UpdateUserRequest request);
+    UserResponse updateUserPartial(Long employeeId, UpdateUserRequest request);
 
-    void deleteUser(String employeeId);
+    void deleteUser(Long employeeId);
 }

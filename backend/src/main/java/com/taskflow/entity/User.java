@@ -18,9 +18,12 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    @NotBlank(message = "Employee ID cannot be blank")
-    @Size(min = 3, max = 20)
-    private String employeeId;
+    @NotNull(message = "Employee ID cannot be null")
+    private Long employeeId;
+
+    @Column
+    @NotNull(message = "Employee Code cannot be null")
+    private String employeeCode;
 
     @Column(nullable = false)
     @NotBlank(message = "First name cannot be blank")

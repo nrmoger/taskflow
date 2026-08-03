@@ -21,7 +21,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @GetMapping("/api/users/{employeeId}")
-    public UserResponse getUserByEmployeeId(@PathVariable String employeeId) {
+    public UserResponse getUserByEmployeeId(@PathVariable Long employeeId) {
         return userService.getUserByEmployeeId(employeeId);
     }
 
@@ -37,17 +37,17 @@ public class UserControllerImpl implements UserController {
     }
 
     @PutMapping("/api/users/{employeeId}")
-    public UserResponse updateUserByEmployeeId(@PathVariable String employeeId, @RequestBody CreateUserRequest request) {
+    public UserResponse updateUserByEmployeeId(@PathVariable Long employeeId, @RequestBody CreateUserRequest request) {
         return userService.updateUserByEmployeeId(employeeId, request);
     }
 
     @PatchMapping("/api/users/{employeeId}")
-    public UserResponse patchUserByEmployeeId(@PathVariable String employeeId, @RequestBody UpdateUserRequest request) {
+    public UserResponse patchUserByEmployeeId(@PathVariable Long employeeId, @RequestBody UpdateUserRequest request) {
         return userService.updateUserPartial(employeeId, request);
     }
 
     @DeleteMapping("/api/users/{employeeId}")
-    public void deleteUser(@PathVariable String employeeId) {
+    public void deleteUser(@PathVariable Long employeeId) {
         userService.deleteUser(employeeId);
     }
 }

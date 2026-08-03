@@ -43,7 +43,7 @@ public class Project {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="project_manager_id")
     @NotNull(message = "Project manager cannot be null")
-    private User projectManager;
+    private User projectManagerId;
 
     @OneToMany(mappedBy="project")
     private List<Task> tasks;
