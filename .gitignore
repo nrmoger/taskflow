@@ -1,0 +1,27 @@
+# Maven
+target/
+*.jar
+*.war
+*.ear
+.flattened-pom.xml
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Spring Boot
+.m2/
+
+# Logs
+*.log
+
