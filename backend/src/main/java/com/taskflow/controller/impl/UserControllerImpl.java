@@ -6,6 +6,7 @@ import com.taskflow.dto.User.UserResponse;
 
 import com.taskflow.dto.User.UpdateUserRequest;
 import com.taskflow.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,27 +27,32 @@ public class UserControllerImpl implements UserController {
     }
 
     @GetMapping("/api/users")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponse> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @PostMapping("/api/users")
+    @PreAuthorize("hasRole('ADMIN')")
     public UserResponse createUser(@RequestBody CreateUserRequest request) {
 
         return userService.createUser(request);
     }
 
     @PutMapping("/api/users/{employeeId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public UserResponse updateUserByEmployeeId(@PathVariable Long employeeId, @RequestBody CreateUserRequest request) {
         return userService.updateUserByEmployeeId(employeeId, request);
     }
 
     @PatchMapping("/api/users/{employeeId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public UserResponse patchUserByEmployeeId(@PathVariable Long employeeId, @RequestBody UpdateUserRequest request) {
         return userService.updateUserPartial(employeeId, request);
     }
 
     @DeleteMapping("/api/users/{employeeId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteUser(@PathVariable Long employeeId) {
         userService.deleteUser(employeeId);
     }
