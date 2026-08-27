@@ -25,12 +25,25 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/h2-console/**", "/").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        // Temporarily disable security restrictions so all endpoints are accessible while debugging
+        // Commented out JWT filter registration and role-based rules for now. Re-enable later when needed.
+//        http.csrf().disable()
+//                .authorizeHttpRequests(auth -> auth
+//                        // allow all requests during investigation
+//                        .anyRequest().permitAll()
+//                );
+
+        // If you want to re-enable JWT auth later, uncomment the lines below and remove the permitAll above.
+         http.csrf().disable()
+                 .authorizeHttpRequests(auth -> auth
+                         .requestMatchers("/api/auth/**", "/h2-console/**", "/").permitAll()
+                         //Role-based authorization
+                         .requestMatchers("/api/users/**").hasRole("ADMIN")
+                         .requestMatchers("/api/projects/**").hasAnyRole("ADMIN", "PROJECT_MANAGER")
+                         .requestMatchers("/api/tasks/**").hasAnyRole("ADMIN", "PROJECT_MANAGER", "DEVELOPER", "QA")
+                         .anyRequest().authenticated()
+                 )
+                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         // allow H2 console frames
         http.headers().frameOptions().disable();
